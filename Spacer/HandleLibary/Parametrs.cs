@@ -23,10 +23,36 @@ namespace SpacerLibary
         /// <param name="distance">Расстояние между отверстиями.</param>
         public Parametrs(float width, float innerDiametr, float outerDiametr, int countHoles, float distance)
         {
-            Width = width;
+            if (width != float.NaN && !float.IsInfinity(width))
+            {
+                Width = width;
+            }
+            else
+            {
+                throw new ArgumentException("Некорректное значение толщины.");
+            }
+
+            if (innerDiametr == float.NaN && !float.IsInfinity(innerDiametr))
+            {
+                throw new ArgumentException("Некорректное значение внутреннего диаметра.");
+            }
+
+            if (outerDiametr == float.NaN && !float.IsInfinity(outerDiametr))
+            {
+                throw new ArgumentException("Некорректное значение внешнего диаметра.");
+            }
+
             SetDiametrs(innerDiametr, outerDiametr);
             CountHoles = countHoles;
-            Distance = distance;
+
+            if (distance != float.NaN && !float.IsInfinity(distance))
+            {
+                Distance = distance;
+            }
+            else
+            {
+                throw new ArgumentException("Некорректное значение дистанции.");
+            }
         }
 
         /// <summary>
@@ -38,9 +64,9 @@ namespace SpacerLibary
             {
                 return _width;
             }
-            set
+            private set
             {
-                if(value >= 10 && value <= 100)
+                if (value >= 10 && value <= 100 )
                 {
                     _width = value;
                 }
@@ -56,17 +82,18 @@ namespace SpacerLibary
         /// </summary>
         /// <param name="innerDiametr">Внутренний.</param>
         /// <param name="outerDiametr">Внешний.</param>
-        public void SetDiametrs(float innerDiametr, float outerDiametr)
+        private void SetDiametrs(float innerDiametr, float outerDiametr)
         {
-            if(outerDiametr - innerDiametr >= 80 && 
-               innerDiametr > 0)
+            if (outerDiametr - innerDiametr >= 80 && 
+               innerDiametr >= 0)
             {
                 _innerDiametr = innerDiametr;
                 _outerDiametr = outerDiametr;
             }
             else
             {
-                throw new ArgumentException("Диаметры должны быть положительными числами и разница между ними должнать буть не менее 80.");
+                throw new ArgumentException("Диаметры должны быть положительными числами " +
+                                            "и разница между ними должнать быть не менее 80.");
             }
         }
 
@@ -101,7 +128,7 @@ namespace SpacerLibary
             {
                 return _countHoles;
             }
-            set
+            private set
             {
                 if (value >= 4 && value <= 6)
                 {
@@ -123,15 +150,16 @@ namespace SpacerLibary
             {
                 return _distance;
             }
-            set
+            private set
             {
-                if(value >= _innerDiametr+10 && value <= _outerDiametr-10)
+                if (value >= _innerDiametr + 30 && value <= _outerDiametr - 30)
                 {
                     _distance = value;
                 }
                 else
                 {
-                    throw new ArgumentException($"Дистанция между отверстиями должна быть больше {_innerDiametr+10} и меньше, чем {_outerDiametr-10}.");
+                    throw new ArgumentException($"Дистанция между отверстиями должна быть больше " +
+                                                $"{_innerDiametr + 30} и меньше, чем {_outerDiametr - 30}.");
                 }
             }
         }

@@ -32,24 +32,24 @@
             this.CloseKompasButton = new System.Windows.Forms.Button();
             this.StartKompasButton = new System.Windows.Forms.Button();
             this.GroupSpacer = new System.Windows.Forms.GroupBox();
-            this.LabelWidth = new System.Windows.Forms.Label();
-            this.FieldWidth = new System.Windows.Forms.NumericUpDown();
-            this.FieldInnerDiametr = new System.Windows.Forms.NumericUpDown();
-            this.LabelInnerDiametr = new System.Windows.Forms.Label();
-            this.FieldOuterDiametr = new System.Windows.Forms.NumericUpDown();
-            this.LabelOuterDiametr = new System.Windows.Forms.Label();
             this.FieldCountHoles = new System.Windows.Forms.NumericUpDown();
-            this.LabelCountHoles = new System.Windows.Forms.Label();
+            this.ButtonDraw = new System.Windows.Forms.Button();
             this.FieldDistance = new System.Windows.Forms.NumericUpDown();
             this.LabelDistance = new System.Windows.Forms.Label();
-            this.ButtonDraw = new System.Windows.Forms.Button();
+            this.LabelCountHoles = new System.Windows.Forms.Label();
+            this.FieldOuterDiametr = new System.Windows.Forms.NumericUpDown();
+            this.LabelOuterDiametr = new System.Windows.Forms.Label();
+            this.FieldInnerDiametr = new System.Windows.Forms.NumericUpDown();
+            this.LabelInnerDiametr = new System.Windows.Forms.Label();
+            this.FieldWidth = new System.Windows.Forms.NumericUpDown();
+            this.LabelWidth = new System.Windows.Forms.Label();
             this.ч.SuspendLayout();
             this.GroupSpacer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FieldWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FieldInnerDiametr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FieldOuterDiametr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldCountHoles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldDistance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldOuterDiametr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldInnerDiametr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // ч
@@ -104,40 +104,129 @@
             this.GroupSpacer.TabStop = false;
             this.GroupSpacer.Text = "Проставка";
             // 
-            // LabelWidth
+            // FieldCountHoles
             // 
-            this.LabelWidth.AutoSize = true;
-            this.LabelWidth.Location = new System.Drawing.Point(6, 31);
-            this.LabelWidth.Name = "LabelWidth";
-            this.LabelWidth.Size = new System.Drawing.Size(134, 13);
-            this.LabelWidth.TabIndex = 0;
-            this.LabelWidth.Text = "Толщина проставки(мм):";
+            this.FieldCountHoles.Location = new System.Drawing.Point(187, 107);
+            this.FieldCountHoles.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.FieldCountHoles.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.FieldCountHoles.Name = "FieldCountHoles";
+            this.FieldCountHoles.Size = new System.Drawing.Size(121, 20);
+            this.FieldCountHoles.TabIndex = 7;
+            this.FieldCountHoles.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.FieldCountHoles.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
             // 
-            // FieldWidth
+            // ButtonDraw
             // 
-            this.FieldWidth.Increment = new decimal(new int[] {
+            this.ButtonDraw.Location = new System.Drawing.Point(187, 159);
+            this.ButtonDraw.Name = "ButtonDraw";
+            this.ButtonDraw.Size = new System.Drawing.Size(121, 23);
+            this.ButtonDraw.TabIndex = 10;
+            this.ButtonDraw.Text = "Построить";
+            this.ButtonDraw.UseVisualStyleBackColor = true;
+            this.ButtonDraw.Click += new System.EventHandler(this.ButtonDraw_Click);
+            // 
+            // FieldDistance
+            // 
+            this.FieldDistance.DecimalPlaces = 3;
+            this.FieldDistance.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.FieldWidth.Location = new System.Drawing.Point(187, 29);
-            this.FieldWidth.Minimum = new decimal(new int[] {
-            10,
+            this.FieldDistance.Location = new System.Drawing.Point(187, 133);
+            this.FieldDistance.Maximum = new decimal(new int[] {
+            80,
             0,
             0,
             0});
-            this.FieldWidth.Name = "FieldWidth";
-            this.FieldWidth.Size = new System.Drawing.Size(121, 20);
-            this.FieldWidth.TabIndex = 1;
-            this.FieldWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.FieldWidth.Value = new decimal(new int[] {
-            10,
+            this.FieldDistance.Minimum = new decimal(new int[] {
+            20,
             0,
             0,
             0});
+            this.FieldDistance.Name = "FieldDistance";
+            this.FieldDistance.Size = new System.Drawing.Size(121, 20);
+            this.FieldDistance.TabIndex = 9;
+            this.FieldDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.FieldDistance.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.FieldDistance.ValueChanged += new System.EventHandler(this.FieldDistance_ValueChanged);
+            // 
+            // LabelDistance
+            // 
+            this.LabelDistance.AutoSize = true;
+            this.LabelDistance.Location = new System.Drawing.Point(6, 135);
+            this.LabelDistance.Name = "LabelDistance";
+            this.LabelDistance.Size = new System.Drawing.Size(175, 13);
+            this.LabelDistance.TabIndex = 8;
+            this.LabelDistance.Text = "Расстояние между отверстиями:";
+            // 
+            // LabelCountHoles
+            // 
+            this.LabelCountHoles.AutoSize = true;
+            this.LabelCountHoles.Location = new System.Drawing.Point(6, 109);
+            this.LabelCountHoles.Name = "LabelCountHoles";
+            this.LabelCountHoles.Size = new System.Drawing.Size(124, 13);
+            this.LabelCountHoles.TabIndex = 6;
+            this.LabelCountHoles.Text = "Количество отверстий:";
+            // 
+            // FieldOuterDiametr
+            // 
+            this.FieldOuterDiametr.DecimalPlaces = 3;
+            this.FieldOuterDiametr.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.FieldOuterDiametr.Location = new System.Drawing.Point(187, 81);
+            this.FieldOuterDiametr.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.FieldOuterDiametr.Minimum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.FieldOuterDiametr.Name = "FieldOuterDiametr";
+            this.FieldOuterDiametr.Size = new System.Drawing.Size(121, 20);
+            this.FieldOuterDiametr.TabIndex = 5;
+            this.FieldOuterDiametr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.FieldOuterDiametr.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.FieldOuterDiametr.ValueChanged += new System.EventHandler(this.FieldInnerDiametr_ValueChanged);
+            // 
+            // LabelOuterDiametr
+            // 
+            this.LabelOuterDiametr.AutoSize = true;
+            this.LabelOuterDiametr.Location = new System.Drawing.Point(6, 83);
+            this.LabelOuterDiametr.Name = "LabelOuterDiametr";
+            this.LabelOuterDiametr.Size = new System.Drawing.Size(126, 13);
+            this.LabelOuterDiametr.TabIndex = 4;
+            this.LabelOuterDiametr.Text = "Внешний диаметр (мм):";
             // 
             // FieldInnerDiametr
             // 
+            this.FieldInnerDiametr.DecimalPlaces = 3;
             this.FieldInnerDiametr.Increment = new decimal(new int[] {
             1,
             0,
@@ -170,121 +259,39 @@
             this.LabelInnerDiametr.TabIndex = 2;
             this.LabelInnerDiametr.Text = "Внутренний диаметр (мм):";
             // 
-            // FieldOuterDiametr
+            // FieldWidth
             // 
-            this.FieldOuterDiametr.Increment = new decimal(new int[] {
+            this.FieldWidth.DecimalPlaces = 3;
+            this.FieldWidth.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.FieldOuterDiametr.Location = new System.Drawing.Point(187, 81);
-            this.FieldOuterDiametr.Maximum = new decimal(new int[] {
-            2000,
+            this.FieldWidth.Location = new System.Drawing.Point(187, 29);
+            this.FieldWidth.Minimum = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-            this.FieldOuterDiametr.Minimum = new decimal(new int[] {
-            90,
+            this.FieldWidth.Name = "FieldWidth";
+            this.FieldWidth.Size = new System.Drawing.Size(121, 20);
+            this.FieldWidth.TabIndex = 1;
+            this.FieldWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.FieldWidth.Value = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-            this.FieldOuterDiametr.Name = "FieldOuterDiametr";
-            this.FieldOuterDiametr.Size = new System.Drawing.Size(121, 20);
-            this.FieldOuterDiametr.TabIndex = 5;
-            this.FieldOuterDiametr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.FieldOuterDiametr.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
+            this.FieldWidth.ValueChanged += new System.EventHandler(this.FieldWidth_ValueChanged);
             // 
-            // LabelOuterDiametr
+            // LabelWidth
             // 
-            this.LabelOuterDiametr.AutoSize = true;
-            this.LabelOuterDiametr.Location = new System.Drawing.Point(6, 83);
-            this.LabelOuterDiametr.Name = "LabelOuterDiametr";
-            this.LabelOuterDiametr.Size = new System.Drawing.Size(126, 13);
-            this.LabelOuterDiametr.TabIndex = 4;
-            this.LabelOuterDiametr.Text = "Внешний диаметр (мм):";
-            // 
-            // FieldCountHoles
-            // 
-            this.FieldCountHoles.Location = new System.Drawing.Point(187, 107);
-            this.FieldCountHoles.Maximum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.FieldCountHoles.Minimum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.FieldCountHoles.Name = "FieldCountHoles";
-            this.FieldCountHoles.Size = new System.Drawing.Size(121, 20);
-            this.FieldCountHoles.TabIndex = 7;
-            this.FieldCountHoles.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.FieldCountHoles.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            // 
-            // LabelCountHoles
-            // 
-            this.LabelCountHoles.AutoSize = true;
-            this.LabelCountHoles.Location = new System.Drawing.Point(6, 109);
-            this.LabelCountHoles.Name = "LabelCountHoles";
-            this.LabelCountHoles.Size = new System.Drawing.Size(124, 13);
-            this.LabelCountHoles.TabIndex = 6;
-            this.LabelCountHoles.Text = "Количество отверстий:";
-            // 
-            // FieldDistance
-            // 
-            this.FieldDistance.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.FieldDistance.Location = new System.Drawing.Point(187, 133);
-            this.FieldDistance.Maximum = new decimal(new int[] {
-            80,
-            0,
-            0,
-            0});
-            this.FieldDistance.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.FieldDistance.Name = "FieldDistance";
-            this.FieldDistance.Size = new System.Drawing.Size(121, 20);
-            this.FieldDistance.TabIndex = 9;
-            this.FieldDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.FieldDistance.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
-            // LabelDistance
-            // 
-            this.LabelDistance.AutoSize = true;
-            this.LabelDistance.Location = new System.Drawing.Point(6, 135);
-            this.LabelDistance.Name = "LabelDistance";
-            this.LabelDistance.Size = new System.Drawing.Size(175, 13);
-            this.LabelDistance.TabIndex = 8;
-            this.LabelDistance.Text = "Расстояние между отверстиями:";
-            // 
-            // ButtonDraw
-            // 
-            this.ButtonDraw.Location = new System.Drawing.Point(187, 159);
-            this.ButtonDraw.Name = "ButtonDraw";
-            this.ButtonDraw.Size = new System.Drawing.Size(121, 23);
-            this.ButtonDraw.TabIndex = 10;
-            this.ButtonDraw.Text = "Построить";
-            this.ButtonDraw.UseVisualStyleBackColor = true;
-            this.ButtonDraw.Click += new System.EventHandler(this.ButtonDraw_Click);
+            this.LabelWidth.AutoSize = true;
+            this.LabelWidth.Location = new System.Drawing.Point(6, 31);
+            this.LabelWidth.Name = "LabelWidth";
+            this.LabelWidth.Size = new System.Drawing.Size(134, 13);
+            this.LabelWidth.TabIndex = 0;
+            this.LabelWidth.Text = "Толщина проставки(мм):";
             // 
             // MainForm
             // 
@@ -296,14 +303,15 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.Text = "Проставка";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ч.ResumeLayout(false);
             this.GroupSpacer.ResumeLayout(false);
             this.GroupSpacer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FieldWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FieldInnerDiametr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FieldOuterDiametr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldCountHoles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldDistance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldOuterDiametr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldInnerDiametr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FieldWidth)).EndInit();
             this.ResumeLayout(false);
 
         }

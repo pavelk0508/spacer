@@ -8,6 +8,7 @@ namespace SpacerLibary
     /// </summary>
     public class KompasConnector
     {
+        // Ссылка на окно Kompas-3D.
         private KompasObject _kompasObject;
 
         /// <summary>

@@ -55,8 +55,8 @@ namespace SpacerUI
         private void FieldInnerDiametr_ValueChanged(object sender, EventArgs e)
         {
             FieldOuterDiametr.Minimum = FieldInnerDiametr.Value + 80;
-            FieldDistance.Minimum = FieldInnerDiametr.Value + 10;
-            FieldDistance.Maximum = FieldOuterDiametr.Value - 10;
+            FieldDistance.Minimum = FieldInnerDiametr.Value + 30;
+            FieldDistance.Maximum = FieldOuterDiametr.Value - 30;
         }
 
         private void ButtonDraw_Click(object sender, EventArgs e)
@@ -72,6 +72,23 @@ namespace SpacerUI
                 MessageBox.Show(ex.Message,"Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
+        }
+
+        private void FieldWidth_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FieldDistance_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            FieldOuterDiametr.Minimum = FieldInnerDiametr.Value + 80;
+            FieldDistance.Minimum = FieldInnerDiametr.Value + 30;
+            FieldDistance.Maximum = FieldOuterDiametr.Value - 30;
         }
     }
 }
