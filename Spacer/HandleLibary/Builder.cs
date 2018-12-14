@@ -29,13 +29,14 @@ namespace SpacerLibary
         /// Создание выдавливания.
         /// </summary>
         /// <param name="width">Высота</param>
-        private void MakeExtrude(float width, ksPart part, ksEntity entitySketch)
+        private ksEntity MakeExtrude(float width, ksPart part, ksEntity entitySketch, bool toForward = true)
         {
             var entityExtrude = (ksEntity)part.NewEntity((short)Obj3dType.o3d_baseExtrusion);
-            var entityExtrudeDefinition = entityExtrude.GetDefinition();
-            entityExtrudeDefinition.SetSideParam(true, 0, width, 0, true);
+            var entityExtrudeDefinition = (ksBaseExtrusionDefinition)entityExtrude.GetDefinition();
+            entityExtrudeDefinition.SetSideParam(toForward, 0, width, 0, true);
             entityExtrudeDefinition.SetSketch(entitySketch);
             entityExtrude.Create();
+            return entityExtrude;
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace SpacerLibary
 
             sketchDefinition.EndEdit();
 
-            MakeExtrude(width, part, entitySketch);
+            var solidObject = MakeExtrude(width, part, entitySketch);
 
             var smallHoles = MakeBaseCircle(part, 12.2f, distanceBetweenHoles / 2);
 
@@ -110,6 +111,9 @@ namespace SpacerLibary
 
             var bigCircularHoles = CircularEntity(part, countHoles, extrudedBigHole);
 
+            var middleCircle = MakeMiddleCircle(part, innerDiametr, 0, 0);
+
+            var extrudedMiddleCircle = MakeExtrude(5, part, middleCircle, false);
         }
 
         /// <summary>
@@ -119,7 +123,7 @@ namespace SpacerLibary
         /// <param name="diametr">Диаметр окружности.</param>
         /// <param name="distance">Расстояние от точки 0,0.</param>
         /// <returns></returns>
-        public ksEntity MakeBaseCircle(ksPart part, float diametr, float distance )
+        public ksEntity MakeBaseCircle(ksPart part, float diametr, float distance)
         {
             var entitySketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
             var sketchDefinition = (ksSketchDefinition)entitySketch.GetDefinition();
@@ -131,6 +135,31 @@ namespace SpacerLibary
             var sketchEdit = (ksDocument2D)sketchDefinition.BeginEdit();
 
             sketchEdit.ksCircle(distance, 0, diametr / 2, 1);
+
+            sketchDefinition.EndEdit();
+            return entitySketch;
+        }
+
+        /// <summary>
+        /// Создание эскиза центрального выступа
+        /// </summary>
+        /// <param name="part">Ссылка на деталь.</param>
+        /// <param name="diametr">Диаметр окружности.</param>
+        /// <param name="distance">Расстояние от точки 0,0.</param>
+        /// <returns></returns>
+        public ksEntity MakeMiddleCircle(ksPart part, float diametr, float x, float y)
+        {
+            var entitySketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
+            var sketchDefinition = (ksSketchDefinition)entitySketch.GetDefinition();
+            var plane = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
+
+            sketchDefinition.SetPlane(plane);
+            entitySketch.Create();
+
+            var sketchEdit = (ksDocument2D)sketchDefinition.BeginEdit();
+
+            sketchEdit.ksCircle(x, y, diametr / 2, 1);
+            sketchEdit.ksCircle(x, y, diametr / 2 + 2.5f, 1);
 
             sketchDefinition.EndEdit();
             return entitySketch;
