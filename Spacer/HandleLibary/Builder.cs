@@ -54,6 +54,29 @@ namespace SpacerLibary
         }
 
         /// <summary>
+        /// Фаска.
+        /// </summary>
+        /// <param name="part"></param>
+        /// <returns></returns>
+        private ksEntity Champfer(ksPart part, float width = 1f)
+        {      
+            var entityChamfer= (ksEntity)part.NewEntity((short)Obj3dType.o3d_chamfer);
+            var chamferDefinition = (ksChamferDefinition)entityChamfer.GetDefinition();
+            chamferDefinition.tangent = false;
+            chamferDefinition.SetChamferParam(true, width, width);
+            //Получаем массив граней детали
+            var entityCollectionPart = (ksEntityCollection)part.EntityCollection((short)Obj3dType.o3d_face);
+            //Получаем массив граней, на которых будет строиться фаска
+            var entityCollectionChamfer = (ksEntityCollection)chamferDefinition.array();
+            entityCollectionChamfer.Clear();
+            //Заполняем массив граней, на которых будет строится фаска
+            entityCollectionChamfer.Add(entityCollectionPart.GetByIndex(entityCollectionPart.GetCount()-2));
+            //Создаем фаску
+            entityChamfer.Create();
+            return entityChamfer;
+        }
+
+        /// <summary>
         /// Построение проставки.
         /// </summary>
         /// <param name="parameters"></param>
@@ -80,6 +103,7 @@ namespace SpacerLibary
             var doc3D = (ksDocument3D)kompas.ActiveDocument3D();
 
             var part = (ksPart)doc3D.GetPart((short)Part_Type.pTop_Part);
+
 
             var entitySketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
 
@@ -111,9 +135,25 @@ namespace SpacerLibary
 
             var bigCircularHoles = CircularEntity(part, countHoles, extrudedBigHole);
 
-            var middleCircle = MakeMiddleCircle(part, innerDiametr, 0, 0);
+            var middleCircle = MakeMiddleCircle(part, innerDiametr, 0, 0, -5f);
 
-            var extrudedMiddleCircle = MakeExtrude(5, part, middleCircle, false);
+            var extrudedMiddleCircle = MakeExtrude(5, part, middleCircle, true);
+
+            var champfer = Champfer(part);
+
+            var bigCirclesFromOtherSide = MakeBaseCircle(part, 20, -distanceBetweenHoles / 2, 5f);
+
+            if (countHoles % 2 == 0)
+            {
+                var sin = (float)(-distanceBetweenHoles / 2 * Math.Sin(Math.PI / countHoles));
+                var cos = (float)(-distanceBetweenHoles / 2 * Math.Cos(Math.PI / countHoles));
+                bigCirclesFromOtherSide = MakeBaseCircle(part, 20, cos, 5f, sin);
+            }
+
+            var extrudedBigHoleFromOtherSide = ExtrusionEntity(part, width - 5f, bigCirclesFromOtherSide, false);
+
+            var bigCircularHolesFromOtherSide = CircularEntity(part, countHoles, extrudedBigHoleFromOtherSide);
+
         }
 
         /// <summary>
@@ -123,18 +163,25 @@ namespace SpacerLibary
         /// <param name="diametr">Диаметр окружности.</param>
         /// <param name="distance">Расстояние от точки 0,0.</param>
         /// <returns></returns>
-        public ksEntity MakeBaseCircle(ksPart part, float diametr, float distance)
+        public ksEntity MakeBaseCircle(ksPart part, float diametr, float distance, float offset = 0f, float y = 0f)
         {
+            var entityPlane = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
+            var entityOffsetPlane = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
+            var planeOffsetDefinition = (ksPlaneOffsetDefinition)entityOffsetPlane.GetDefinition();
+            planeOffsetDefinition.direction = true;
+            planeOffsetDefinition.offset = offset;
+            planeOffsetDefinition.SetPlane(entityPlane);
+            entityOffsetPlane.Create();
+
             var entitySketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
             var sketchDefinition = (ksSketchDefinition)entitySketch.GetDefinition();
-            var plane = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
 
-            sketchDefinition.SetPlane(plane);
+            sketchDefinition.SetPlane(planeOffsetDefinition);
             entitySketch.Create();
 
             var sketchEdit = (ksDocument2D)sketchDefinition.BeginEdit();
 
-            sketchEdit.ksCircle(distance, 0, diametr / 2, 1);
+            sketchEdit.ksCircle(distance, y, diametr / 2, 1);
 
             sketchDefinition.EndEdit();
             return entitySketch;
@@ -147,13 +194,20 @@ namespace SpacerLibary
         /// <param name="diametr">Диаметр окружности.</param>
         /// <param name="distance">Расстояние от точки 0,0.</param>
         /// <returns></returns>
-        public ksEntity MakeMiddleCircle(ksPart part, float diametr, float x, float y)
+        public ksEntity MakeMiddleCircle(ksPart part, float diametr, float x, float y, float offset = 0f)
         {
+            var entityPlane = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
+            var entityOffsetPlane = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
+            var planeOffsetDefinition = (ksPlaneOffsetDefinition)entityOffsetPlane.GetDefinition();
+            planeOffsetDefinition.direction = true;
+            planeOffsetDefinition.offset = offset;
+            planeOffsetDefinition.SetPlane(entityPlane);
+            entityOffsetPlane.Create();
+
             var entitySketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
             var sketchDefinition = (ksSketchDefinition)entitySketch.GetDefinition();
-            var plane = (ksEntity)part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
 
-            sketchDefinition.SetPlane(plane);
+            sketchDefinition.SetPlane(planeOffsetDefinition);
             entitySketch.Create();
 
             var sketchEdit = (ksDocument2D)sketchDefinition.BeginEdit();
@@ -195,12 +249,12 @@ namespace SpacerLibary
         /// <param name="width">Глубина.</param>
         /// <param name="entityForExtrusion">Объект для операции.</param>
         /// <returns></returns>
-        public ksEntity ExtrusionEntity(ksPart part, float width, object entityForExtrusion)
+        public ksEntity ExtrusionEntity(ksPart part, float width, object entityForExtrusion, bool side = false)
         {
             var entityCutExtrusion = (ksEntity)part.NewEntity((short)Obj3dType.o3d_cutExtrusion);
             var cutExtrusionDefinition = (ksCutExtrusionDefinition)entityCutExtrusion.GetDefinition();
             cutExtrusionDefinition.cut = true;
-            cutExtrusionDefinition.SetSideParam(false, 0, width, 0, false);
+            cutExtrusionDefinition.SetSideParam(side, 0, width, 0, false);
             cutExtrusionDefinition.SetSketch(entityForExtrusion);
             entityCutExtrusion.Create();
             return entityCutExtrusion;
