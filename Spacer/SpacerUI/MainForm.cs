@@ -13,13 +13,34 @@ namespace SpacerUI
 {
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Ссылка на Компас-3Д.
+        /// </summary>
         private KompasConnector _kompasConnector = new KompasConnector();
+
+        /// <summary>
+        /// Параметры проставки.
+        /// </summary>
         private Parametrs _parametrs;
+
+        /// <summary>
+        /// Ссылка на построитель.
+        /// </summary>
         private Builder _builder;
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Обновление пределов.
+        /// </summary>
+        private void RefreshValues()
+        {
+            FieldOuterDiametr.Minimum = FieldInnerDiametr.Value + 80;
+            FieldDistance.Minimum = FieldInnerDiametr.Value + 30;
+            FieldDistance.Maximum = FieldOuterDiametr.Value - 30;
         }
 
         private void StartKompasButton_Click(object sender, EventArgs e)
@@ -54,16 +75,16 @@ namespace SpacerUI
 
         private void FieldInnerDiametr_ValueChanged(object sender, EventArgs e)
         {
-            FieldOuterDiametr.Minimum = FieldInnerDiametr.Value + 80;
-            FieldDistance.Minimum = FieldInnerDiametr.Value + 30;
-            FieldDistance.Maximum = FieldOuterDiametr.Value - 30;
+            RefreshValues();
         }
 
         private void ButtonDraw_Click(object sender, EventArgs e)
         {
             try
             {
-                _parametrs = new Parametrs((float)FieldWidth.Value, (float)FieldInnerDiametr.Value, (float)FieldOuterDiametr.Value, (int)FieldCountHoles.Value, (float)FieldDistance.Value);
+                _parametrs = new Parametrs((float)FieldWidth.Value, 
+                    (float)FieldInnerDiametr.Value, (float)FieldOuterDiametr.Value, 
+                    (int)FieldCountHoles.Value, (float)FieldDistance.Value);
                 _builder = new Builder(_kompasConnector);
                 _builder.CreateDetail(_parametrs);
             }
@@ -74,21 +95,9 @@ namespace SpacerUI
 
         }
 
-        private void FieldWidth_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FieldDistance_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
-            FieldOuterDiametr.Minimum = FieldInnerDiametr.Value + 80;
-            FieldDistance.Minimum = FieldInnerDiametr.Value + 30;
-            FieldDistance.Maximum = FieldOuterDiametr.Value - 30;
+            RefreshValues();
         }
     }
 }

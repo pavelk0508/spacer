@@ -7,10 +7,29 @@ namespace SpacerLibary
     /// </summary>
     public class Parametrs
     {
+        /// <summary>
+        /// Ширина проставки.
+        /// </summary>
         private float _width;
+
+        /// <summary>
+        /// Внутренний диаметр.
+        /// </summary>
         private float _innerDiametr;
+
+        /// <summary>
+        /// Внешний диаметр.
+        /// </summary>
         private float _outerDiametr;
+
+        /// <summary>
+        /// Количество отверстий.
+        /// </summary>
         private int _countHoles;
+
+        /// <summary>
+        ///// Расстояние между отверстиями.
+        /// </summary>
         private float _distance;
         
         /// <summary>
@@ -23,7 +42,7 @@ namespace SpacerLibary
         /// <param name="distance">Расстояние между отверстиями.</param>
         public Parametrs(float width, float innerDiametr, float outerDiametr, int countHoles, float distance)
         {
-            if (width != float.NaN && !float.IsInfinity(width))
+            if (!float.IsNaN(width) && !float.IsInfinity(width))
             {
                 Width = width;
             }
@@ -32,12 +51,12 @@ namespace SpacerLibary
                 throw new ArgumentException("Некорректное значение толщины.");
             }
 
-            if (innerDiametr == float.NaN && !float.IsInfinity(innerDiametr))
+            if (float.IsNaN(innerDiametr) && !float.IsInfinity(innerDiametr))
             {
                 throw new ArgumentException("Некорректное значение внутреннего диаметра.");
             }
 
-            if (outerDiametr == float.NaN && !float.IsInfinity(outerDiametr))
+            if (float.IsNaN(outerDiametr) && !float.IsInfinity(outerDiametr))
             {
                 throw new ArgumentException("Некорректное значение внешнего диаметра.");
             }
@@ -45,7 +64,7 @@ namespace SpacerLibary
             SetDiametrs(innerDiametr, outerDiametr);
             CountHoles = countHoles;
 
-            if (distance != float.NaN && !float.IsInfinity(distance))
+            if (!float.IsNaN(distance) && !float.IsInfinity(distance))
             {
                 Distance = distance;
             }
@@ -60,10 +79,7 @@ namespace SpacerLibary
         /// </summary>
         public float Width
         {
-            get
-            {
-                return _width;
-            }
+            get => _width;
             private set
             {
                 if (value >= 10 && value <= 100 )
@@ -100,34 +116,19 @@ namespace SpacerLibary
         /// <summary>
         /// Внутренний диаметр.
         /// </summary>
-        public float InnerDiametr
-        {
-            get
-            {
-                return _innerDiametr;
-            }
-        }
+        public float InnerDiametr => _innerDiametr;
 
         /// <summary>
         /// Внешний диаметр.
         /// </summary>
-        public float OuterDiametr
-        {
-            get
-            {
-                return _outerDiametr;
-            }
-        }
+        public float OuterDiametr => _outerDiametr;
 
         /// <summary>
         /// Количество отверстий.
         /// </summary>
         public int CountHoles
         {
-            get
-            {
-                return _countHoles;
-            }
+            get => _countHoles;
             private set
             {
                 if (value >= 4 && value <= 6)
@@ -146,10 +147,7 @@ namespace SpacerLibary
         /// </summary>
         public float Distance
         {
-            get
-            {
-                return _distance;
-            }
+            get => _distance;
             private set
             {
                 if (value >= _innerDiametr + 30 && value <= _outerDiametr - 30)

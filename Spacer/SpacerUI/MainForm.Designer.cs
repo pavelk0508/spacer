@@ -43,6 +43,10 @@
             this.LabelInnerDiametr = new System.Windows.Forms.Label();
             this.FieldWidth = new System.Windows.Forms.NumericUpDown();
             this.LabelWidth = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ч.SuspendLayout();
             this.GroupSpacer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FieldCountHoles)).BeginInit();
@@ -50,6 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.FieldOuterDiametr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldInnerDiametr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // ч
@@ -86,6 +91,10 @@
             // 
             // GroupSpacer
             // 
+            this.GroupSpacer.Controls.Add(this.checkBox1);
+            this.GroupSpacer.Controls.Add(this.label2);
+            this.GroupSpacer.Controls.Add(this.numericUpDown1);
+            this.GroupSpacer.Controls.Add(this.label1);
             this.GroupSpacer.Controls.Add(this.FieldCountHoles);
             this.GroupSpacer.Controls.Add(this.ButtonDraw);
             this.GroupSpacer.Controls.Add(this.FieldDistance);
@@ -99,7 +108,7 @@
             this.GroupSpacer.Controls.Add(this.LabelWidth);
             this.GroupSpacer.Location = new System.Drawing.Point(12, 75);
             this.GroupSpacer.Name = "GroupSpacer";
-            this.GroupSpacer.Size = new System.Drawing.Size(314, 188);
+            this.GroupSpacer.Size = new System.Drawing.Size(314, 264);
             this.GroupSpacer.TabIndex = 10;
             this.GroupSpacer.TabStop = false;
             this.GroupSpacer.Text = "Проставка";
@@ -129,7 +138,7 @@
             // 
             // ButtonDraw
             // 
-            this.ButtonDraw.Location = new System.Drawing.Point(187, 159);
+            this.ButtonDraw.Location = new System.Drawing.Point(187, 224);
             this.ButtonDraw.Name = "ButtonDraw";
             this.ButtonDraw.Size = new System.Drawing.Size(121, 23);
             this.ButtonDraw.TabIndex = 10;
@@ -147,7 +156,7 @@
             196608});
             this.FieldDistance.Location = new System.Drawing.Point(187, 133);
             this.FieldDistance.Maximum = new decimal(new int[] {
-            80,
+            120,
             0,
             0,
             0});
@@ -161,11 +170,10 @@
             this.FieldDistance.TabIndex = 9;
             this.FieldDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.FieldDistance.Value = new decimal(new int[] {
-            40,
+            120,
             0,
             0,
             0});
-            this.FieldDistance.ValueChanged += new System.EventHandler(this.FieldDistance_ValueChanged);
             // 
             // LabelDistance
             // 
@@ -209,7 +217,7 @@
             this.FieldOuterDiametr.TabIndex = 5;
             this.FieldOuterDiametr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.FieldOuterDiametr.Value = new decimal(new int[] {
-            90,
+            150,
             0,
             0,
             0});
@@ -243,7 +251,7 @@
             this.FieldInnerDiametr.TabIndex = 3;
             this.FieldInnerDiametr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.FieldInnerDiametr.Value = new decimal(new int[] {
-            10,
+            50,
             0,
             0,
             0});
@@ -282,7 +290,6 @@
             0,
             0,
             0});
-            this.FieldWidth.ValueChanged += new System.EventHandler(this.FieldWidth_ValueChanged);
             // 
             // LabelWidth
             // 
@@ -293,11 +300,68 @@
             this.LabelWidth.TabIndex = 0;
             this.LabelWidth.Text = "Толщина проставки(мм):";
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 3;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown1.Location = new System.Drawing.Point(187, 198);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(121, 20);
+            this.numericUpDown1.TabIndex = 12;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 200);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(175, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Расстояние между отверстиями:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 165);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(175, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Расстояние между отверстиями:";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(187, 161);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 275);
+            this.ClientSize = new System.Drawing.Size(338, 351);
             this.Controls.Add(this.GroupSpacer);
             this.Controls.Add(this.ч);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -312,6 +376,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.FieldOuterDiametr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldInnerDiametr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FieldWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -333,6 +398,10 @@
         private System.Windows.Forms.Label LabelInnerDiametr;
         private System.Windows.Forms.NumericUpDown FieldWidth;
         private System.Windows.Forms.Label LabelWidth;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
